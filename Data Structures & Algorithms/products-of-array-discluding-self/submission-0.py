@@ -1,0 +1,22 @@
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        prefix = [1] * n # prefix[i] stores the value of the product of nums through i
+        suffix = [1] * n # suffix[i] stores the value of the product of nums backward through i
+
+        for i in range(1, n):
+            prefix[i] = prefix[i-1] * nums[i-1]
+        for i in range(n-2, -1, -1):
+            suffix[i] = suffix[i+1] * nums[i+1]
+
+        return [prefix[i] * suffix[i] for i in range(n)]
+
+"""
+        for i in range(1,n):
+            prefix[i] = prefix[i-1] * nums[i-1]
+            suffix[i] = suffix[i-1] * nums[len(nums)-i-1]
+        
+        output = []
+        for i in range(len(nums)):
+            output.append(int(prefix[i-1] * suffix[i-1]))
+        return output"""
